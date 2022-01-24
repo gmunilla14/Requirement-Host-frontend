@@ -73,7 +73,7 @@ body {
   outline: none;
   background-color: var(--nav-heading-bg);
   width: calc(100vw - 9rem);
-  color: var(--req-text)
+  color: var(--req-text);
 }
 
 .nav-req-bg {
@@ -532,6 +532,16 @@ td {
   width: 25rem;
 }
 
+.signup-modal {
+  height: 43rem;
+  width: 40rem;
+}
+
+.signup-holder {
+  padding-top: 7.5rem;
+  margin-left: 7.5rem;
+}
+
 .login-title {
   font-size: 2rem;
   font-weight: 500;
@@ -601,7 +611,7 @@ td {
   padding-bottom: 0.6rem;
   position: relative;
   display: block;
-  overflow: auto
+  overflow: auto;
 }
 
 .project-title-holder {
@@ -612,7 +622,7 @@ td {
 
 .edit-project-btn {
   color: var(--title-text);
-  background-color: var(--light-bg) ;
+  background-color: var(--light-bg);
   width: 3.3rem;
   height: 2rem;
   border-radius: 0.25rem;
@@ -1014,19 +1024,18 @@ td {
 }
 
 .setting-color-btn {
-    background-color: var(--accent);
-    border-color: var(--accent);
-    border-radius: 0.25rem;
-    box-shadow: none;
-    color: var(--button-text);
-    border-style: solid;
-    padding-left: 1rem;
-    margin-left: 0.625rem;
-    height: 1.75rem;
-    width: 3.75rem;
-    cursor: pointer;
+  background-color: var(--accent);
+  border-color: var(--accent);
+  border-radius: 0.25rem;
+  box-shadow: none;
+  color: var(--button-text);
+  border-style: solid;
+  padding-left: 1rem;
+  margin-left: 0.625rem;
+  height: 1.75rem;
+  width: 3.75rem;
+  cursor: pointer;
 }
-
 
 @media (max-width: 1250px) {
   .projects-holder {
@@ -1042,11 +1051,8 @@ td {
 }
 
 @media (max-width: 950px) {
-
-
   .nav-search-holder {
     padding-left: 0.5rem;
-
   }
 
   .req-holder {
@@ -1057,13 +1063,19 @@ td {
     font-size: 0.75rem;
     width: 60rem;
   }
+
+  .login-description {
+    font-size: 0.75rem;
+  }
+
+  .login-title {
+    font-size: 1.5rem;
+  }
 }
 
-
 @media (max-width: 768px) {
-
   .nav-title {
-    font-size: 0.9rem
+    font-size: 0.9rem;
   }
   .project-card {
     width: 70vw;
@@ -1107,7 +1119,23 @@ td {
     width: 70vw;
   }
 
+  .login-modal {
+    width: 27rem;
+  }
 
+  .login-modal-holder {
+    width: 20rem;
+  }
+
+  .signup-modal {
+    width: 27rem;
+    height: 35rem;
+  }
+
+  .signup-holder {
+    margin-left: 4rem;
+    padding-top: 4rem;
+  }
 }
 
 @media (max-width: 600px) {
@@ -1119,7 +1147,6 @@ td {
 @media (max-width: 550px) {
   .nav-search-holder {
     padding-left: 0.5rem;
-
   }
 }
 
@@ -1155,6 +1182,19 @@ td {
   .project-description {
     font-size: 0.75rem;
   }
+
+  .login-modal {
+    width: 16rem;
+  }
+
+  .login-modal-holder {
+    width: 14rem;
+    margin-left: 1rem;
+  }
+
+
+
+
 }
 
 @media (max-width: 400px) {

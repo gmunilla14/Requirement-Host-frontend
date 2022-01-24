@@ -19,15 +19,15 @@ const SignUp = () => {
   const [minUsernameError, setMinUsernameError] = useState(false);
   const [maxUsernameError, setMaxUsernameError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  const [noEmailError, setNoEmailError] = useState(false)
+  const [noEmailError, setNoEmailError] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     var error = false;
 
-    if(user.email === ''){
-      setNoEmailError(true)
-      error = true
+    if (user.email === "") {
+      setNoEmailError(true);
+      error = true;
     }
     if (confirmPassword !== user.password) {
       setPasswordCheckError(true);
@@ -56,11 +56,8 @@ const SignUp = () => {
 
   return (
     <div className="login-bg" style={{ paddingTop: "9.375rem" }}>
-      <div className="login-modal" style={{ height: "43rem", width: "40rem" }}>
-        <div
-          className="login-modal-holder"
-          style={{ paddingTop: "7.5rem", marginLeft: "7.5rem" }}
-        >
+      <div className="login-modal signup-modal">
+        <div className="login-modal-holder signup-holder">
           <div className="login-title">Sign Up</div>
           <div className="login-description">
             A single tool to manage your projects and requirements.
@@ -119,9 +116,9 @@ const SignUp = () => {
               type="email"
               setValue={(e) => {
                 setUser({ ...user, email: e.target.value });
-                setNoEmailError(false)
+                setNoEmailError(false);
               }}
-              error = {noEmailError ? 'Must use an email to sign up': ''}
+              error={noEmailError ? "Must use an email to sign up" : ""}
             />
             <TextInput
               title="Password"
