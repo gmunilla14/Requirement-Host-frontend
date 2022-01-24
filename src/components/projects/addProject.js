@@ -131,7 +131,7 @@ const AddProject = () => {
       ]);
 
       setUsernameStatus("");
-      setCollabUsername({...collabUsername, name: ''});
+      setCollabUsername({ ...collabUsername, name: "" });
     } else {
       setRepeatCollabError(true);
     }
@@ -372,30 +372,33 @@ const AddProject = () => {
                   role="Owner"
                   color={settings.color}
                 />
+                {project.collaborators !== undefined && (
+                  <>
+                    {project.collaborators.map((collaborator) => {
+                      if (collabUsernameSet.length !== 0) {
+                        let color = collabUsernameSet.filter((collab) => {
+                          return collab.name === collaborator;
+                        })[0];
 
-                {project.collaborators.map((collaborator) => {
-                  if (collabUsernameSet.length !== 0) {
-                    let color = collabUsernameSet.filter((collab) => {
-                      return collab.name === collaborator;
-                    })[0];
-
-                    if (color !== undefined) {
-                      color = color.color;
-                    } else {
-                      color = "#000000";
-                    }
-                    return (
-                      <Collab
-                        username={collaborator}
-                        role="Collaborator"
-                        key={collaborator}
-                        color={color}
-                      />
-                    );
-                  } else {
-                    return <></>;
-                  }
-                })}
+                        if (color !== undefined) {
+                          color = color.color;
+                        } else {
+                          color = "#000000";
+                        }
+                        return (
+                          <Collab
+                            username={collaborator}
+                            role="Collaborator"
+                            key={collaborator}
+                            color={color}
+                          />
+                        );
+                      } else {
+                        return <></>;
+                      }
+                    })}
+                  </>
+                )}
               </div>
 
               <div className="add-button-modal-holder">
