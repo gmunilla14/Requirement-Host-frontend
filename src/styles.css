@@ -1083,11 +1083,11 @@ td {
 
   .nav-settings-holder {
     position: relative;
-    padding-left: 0.5rem;
+    padding-left: 1.2rem;
   }
 
   .user-circle-nav {
-    right: 1rem;
+    right: 0.5rem;
     position: absolute;
   }
 
