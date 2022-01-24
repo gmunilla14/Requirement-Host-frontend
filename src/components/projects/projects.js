@@ -9,7 +9,7 @@ const Projects = ({ query }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProjects());
-  }, [dispatch]);
+  }, []); //eslint-disable-line react-hooks/exhaustive-deps
 
   const [largeScreen, setLargeScreen] = useState(true);
   const auth = useSelector((state) => state.auth);

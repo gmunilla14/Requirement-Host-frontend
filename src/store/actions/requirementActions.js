@@ -25,7 +25,7 @@ export const addRequirement = (requirement) => {
         dispatch({ type: "ADD_REQ", requirement });
       })
       .catch((err) => {
-        console.log(err.response);
+        console.log(err);
       });
   };
 };

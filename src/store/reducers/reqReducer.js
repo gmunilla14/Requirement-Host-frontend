@@ -5,7 +5,7 @@ const reqReducer = (state = [], action) => {
     case "DELETE_REQ":
       return state.filter((requirement) => requirement._id !== action.id);
     case "ADD_REQ":
-      return [action.requirements.data, ...state];
+      return [action.requirement.data, ...state];
     case "EDIT_REQ":
       return state.map((requirement) =>
         requirement._id === action.requirement.data._id

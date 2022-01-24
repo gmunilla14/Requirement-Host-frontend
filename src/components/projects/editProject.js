@@ -128,6 +128,7 @@ const EditProject = ({ inputProject, owner, collaboratorSet }) => {
         collaborators: project.collaborators,
         _id: project._id,
       };
+      inputProject = newProject;
       dispatch(ownerEditProject(newProject));
     } else {
       const newValues = {

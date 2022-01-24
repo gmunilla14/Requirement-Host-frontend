@@ -25,7 +25,7 @@ export const addCategory = (category) => {
         dispatch({ type: "ADD_CATEGORY" }, category);
       })
       .catch((err) => {
-        console.log(err.response);
+        console.log(err);
       });
   };
 };

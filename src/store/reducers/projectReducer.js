@@ -4,7 +4,7 @@ const projReducer = (state = [], action) => {
       return action.projects.data;
     case "ADD_PROJ":
     case "EDIT_PROJ":
-      return [action.projects.data, ...state];
+      return [action.project.data, ...state];
     default:
       return state;
   }
