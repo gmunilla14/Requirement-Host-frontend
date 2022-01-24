@@ -23,7 +23,6 @@ const Requirements = ({
     const allCatIds = requirements.map((requirement) => requirement.categoryId)
     const catIds = allCatIds.filter((value, index, array) => array.indexOf(value)=== index)
     dispatch(getCategories(catIds))
-    console.log(catIds)
   }
 
 

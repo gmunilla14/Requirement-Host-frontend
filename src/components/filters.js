@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { IoMdBriefcase } from "react-icons/io";
 import { MdFormatListBulleted } from "react-icons/md";
-import { getCategories } from "../store/actions/categoryActions";
 
 const Filters = ({ setFilterCategory, setFilterProject }) => {
   const dispatch = useDispatch();
@@ -16,9 +15,6 @@ const Filters = ({ setFilterCategory, setFilterProject }) => {
     dispatch(getProjects());
   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(getCategories());
-  }, [dispatch]);
 
   const onProjectChange = (e) => {
     if (!(e === "allProjects")) {
