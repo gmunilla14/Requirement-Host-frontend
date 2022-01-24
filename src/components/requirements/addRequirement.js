@@ -31,7 +31,7 @@ const AddRequirement = () => {
   let projects = useSelector((state) => state.projects);
   const auth = useSelector((state) => state.auth);
   let cats = useSelector((state) => state.categories);
-  cats = cats.filter((category) =>  category.uid === auth._id)
+  cats = cats.filter((category) => category.uid === auth._id);
   const [currentCat, setCurrentCat] = useState({
     text: "",
     color: "",
@@ -228,20 +228,18 @@ const AddRequirement = () => {
                   {showNewCat && (
                     <Col>
                       <Form.Group>
-                        <div style={{ display: "flex" }}>
-                          <Form.Control
-                            required
+                        <div style={{ display: "flex", marginTop: '-1rem' }}>
+                          <TextInput
+                            title=""
                             type="text"
-                            placeholder="Enter new Category Name"
-                            id="category_text"
-                            onChange={onCatTextChange}
-                            className="new-category-input"
-                          ></Form.Control>
+                            value={newCategory.text}
+                            setValue={onCatTextChange}
+                          />
                           <input
                             type="color"
                             onChange={onColorChange}
                             style={{
-                              marginTop: "0.125rem",
+                              marginTop: "1.2rem",
                               marginLeft: "0.5rem",
                             }}
                           />
