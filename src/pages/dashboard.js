@@ -6,8 +6,8 @@ import NavBar from "../components/navBar";
 import { useEffect } from "react";
 import { getSettings } from "../store/actions/settingActions";
 import { getRequirements } from "../store/actions/requirementActions";
+import { Navigate } from "react-router-dom";
 const Dashboard = ({ query, setQuery }) => {
-
   const [filterCategory, setFilterCategory] = useState("");
   const [filterProject, setFilterProject] = useState("");
 
@@ -22,7 +22,7 @@ const Dashboard = ({ query, setQuery }) => {
     dispatch(getSettings());
   }, []); //eslint-disable-line react-hooks/exhaustive-deps
 
-
+  if (!auth._id) return <Navigate replace to="/signin" />;
 
   return (
     <>
