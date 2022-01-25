@@ -32,7 +32,7 @@ export const addRequirement = (requirement) => {
 
 export const deleteRequirement = (id) => {
   return (dispatch) => {
-    axios.delete(`${url}/requirements/${id}`).then(() => {
+    axios.delete(`${url}/requirements/${id}`, setHeaders()).then(() => {
       dispatch({ type: "DELETE_REQ", id });
     });
   };
@@ -41,7 +41,11 @@ export const deleteRequirement = (id) => {
 export const editRequirement = (requirement) => {
   return (dispatch) => {
     axios
-      .put(`${url}/requirements/${requirement._id}`, { text: requirement.text })
+      .put(
+        `${url}/requirements/${requirement._id}`,
+        { text: requirement.text, projectId: requirement.projectId },
+        setHeaders()
+      )
       .then((requirement) => {
         dispatch({ type: "EDIT_REQ", requirement });
       });
@@ -50,12 +54,13 @@ export const editRequirement = (requirement) => {
 
 export const satisfyRequirement = (requirement) => {
   return (dispatch) => {
-    axios.patch(`${url}/requirements/${requirement._id}`)
-    .then((requirement) => {
-      dispatch({ type: "EDIT_REQ", requirement})
-    })
-  }
-}
+    axios
+      .patch(`${url}/requirements/${requirement._id}`)
+      .then((requirement) => {
+        dispatch({ type: "EDIT_REQ", requirement });
+      });
+  };
+};
 
 export const clearRequirementState = () => {
   return (dispatch) => {
