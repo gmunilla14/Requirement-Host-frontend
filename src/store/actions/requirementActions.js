@@ -55,7 +55,7 @@ export const editRequirement = (requirement) => {
 export const satisfyRequirement = (requirement) => {
   return (dispatch) => {
     axios
-      .patch(`${url}/requirements/${requirement._id}`)
+      .patch(`${url}/requirements/${requirement._id}`, {},setHeaders())
       .then((requirement) => {
         dispatch({ type: "EDIT_REQ", requirement });
       });
