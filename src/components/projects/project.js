@@ -8,6 +8,8 @@ import EditProject from "./editProject";
 import {FiFigma} from "react-icons/fi"
 
 const Project = ({ project, largeScreen }) => {
+
+  //Initialize states
   const [owner, setOwner] = useState({
     name: "",
     color: "",
@@ -15,12 +17,16 @@ const Project = ({ project, largeScreen }) => {
 
   const [collaboratorSet, setCollaboratorSet] = useState([]);
 
+  //Get percent of project that has been satisfied
   let percent = 0;
   if (project.reqNum !== 0) {
     percent = Math.round((project.satisfyNum / project.reqNum) * 100);
   }
 
+  //On load
   useEffect(() => {
+
+    //Get username and color of current owner
     axios
       .get(`${url}/auth/username/${project.uid}`)
       .then((data) => {
@@ -30,10 +36,12 @@ const Project = ({ project, largeScreen }) => {
         console.log(err);
       });
 
+    //Make collaborator list unique
     const uniqueCollaborators = project.collaborators.filter(
       (value, index, array) => array.indexOf(value) === index
     );
 
+    //Get color for each collaborator for the project and add them to a list
     uniqueCollaborators.forEach((collaborator) => {
       axios
         .get(`${url}/auth/color/${collaborator}`)

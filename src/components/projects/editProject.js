@@ -16,21 +16,21 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 
 const EditProject = ({ inputProject, owner, collaboratorSet }) => {
-  const [showModal, setShowModal] = useState({
-    show: false,
-    type: "",
-  });
+
+  const auth = useSelector((state) => state.auth);
+
+  const [showModal, setShowModal] = useState(false);
 
   const dispatch = useDispatch();
 
   const [project, setProject] = useState(inputProject);
 
-  const auth = useSelector((state) => state.auth);
 
   const [collabUsername, setCollabUsername] = useState("");
   const [usernameStatus, setUsernameStatus] = useState("");
   const [editingCollabSet, setEditingCollabSet] = useState([]);
 
+  //Error states
   const [noProjectError, setNoProjectError] = useState(false);
   const [maxNameError, setMaxNameError] = useState(false);
   const [maxDescriptionError, setMaxDescriptionError] = useState(false);
@@ -51,11 +51,11 @@ const EditProject = ({ inputProject, owner, collaboratorSet }) => {
   }
 
   const onEditProject = () => {
-    setShowModal({ ...showModal, show: true });
+    setShowModal(true);
   };
 
   const handleClose = () => {
-    setShowModal({ ...showModal, show: false });
+    setShowModal(false);
   };
 
   const handleCheckUsername = (username) => {
@@ -150,7 +150,7 @@ const EditProject = ({ inputProject, owner, collaboratorSet }) => {
         Edit
       </div>
 
-      <Modal show={showModal.show} onHide={handleClose}>
+      <Modal show={showModal} onHide={handleClose}>
         <Modal.Header className="modal-header" closeButton>
           <Modal.Title className="add-proj-title">Edit Project</Modal.Title>
         </Modal.Header>

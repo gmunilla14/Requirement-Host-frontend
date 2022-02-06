@@ -11,6 +11,21 @@ import { v4 as uuidv4 } from "uuid";
 import TextInput from "../textInput";
 
 const AddRequirement = () => {
+  
+  const dispatch = useDispatch();
+
+  //Load state
+  let projects = useSelector((state) => state.projects);
+  const auth = useSelector((state) => state.auth);
+  let cats = useSelector((state) => state.categories);
+
+  //Filter categories and projects to only show ones created by the user
+  cats = cats.filter((category) => category.uid === auth._id);
+  projects = projects.filter((project) => project.uid === auth._id);
+
+
+
+  //Initialize new object states
   const [requirement, setRequirement] = useState({
     text: "",
     isSatisfied: false,
@@ -18,31 +33,27 @@ const AddRequirement = () => {
     projectPrefix: "",
   });
 
+  //Used for adding a new category
   const [newCategory, setNewCategory] = useState({
     text: "",
     color: "",
   });
 
-  const [requirementError, setRequirementError] = useState(false);
-  const [noProjectError, setNoProjectError] = useState(false);
-  const [maxRequirementError, setMaxRequirementError] = useState(false);
-  const [currentProjName, setCurrentProjName] = useState("");
-
-  let projects = useSelector((state) => state.projects);
-  const auth = useSelector((state) => state.auth);
-  let cats = useSelector((state) => state.categories);
-  cats = cats.filter((category) => category.uid === auth._id);
+  //Used for choosing an existing category
   const [currentCat, setCurrentCat] = useState({
     text: "",
     color: "",
   });
 
-  projects = projects.filter((project) => project.uid === auth._id);
+  const [currentProjName, setCurrentProjName] = useState("");
+
+  //Error states
+  const [requirementError, setRequirementError] = useState(false);
+  const [noProjectError, setNoProjectError] = useState(false);
+  const [maxRequirementError, setMaxRequirementError] = useState(false);
 
   const [showModal, setShowModal] = useState(false);
   const [showNewCat, setShowNewCat] = useState(false);
-
-  const dispatch = useDispatch();
 
   const handleClose = () => {
     setShowModal(false);
@@ -52,7 +63,9 @@ const AddRequirement = () => {
     setShowModal(true);
   };
 
+  //When category changes
   const onCatChange = (e) => {
+    //If adding new category
     if (e === "+ Add New Category") {
       setShowNewCat(true);
     } else if (e === "--blank--") {
@@ -72,8 +85,13 @@ const AddRequirement = () => {
     }
   };
 
+  //Set new category value
   const onCatTextChange = (e) => {
     setNewCategory({ ...newCategory, text: e.target.value });
+  };
+
+  const onColorChange = (e) => {
+    setNewCategory({ ...newCategory, color: e.target.value });
   };
 
   const onProjectChange = (e) => {
@@ -88,8 +106,8 @@ const AddRequirement = () => {
   const handleSubmit = (e) => {
     var newReq = {};
 
+    //Error handling
     let error = false;
-
     if (requirement.text === "") {
       setRequirementError(true);
       error = true;
@@ -102,14 +120,18 @@ const AddRequirement = () => {
     if (maxRequirementError) {
       error = true;
     }
-
     if (error) return;
+
+    //If adding a new category
     if (showNewCat) {
+      //Create catID
       const catId = uuidv4().toString();
 
+      //Add category to new requirement and create category
       newReq = { ...requirement, categoryId: catId };
       dispatch(addCategory({ ...newCategory, catId: catId, uid: auth._id }));
     } else {
+      //Add currently chosen category to requirement
       newReq = {
         ...requirement,
         categoryId: currentCat.catId,
@@ -124,10 +146,6 @@ const AddRequirement = () => {
     });
     handleClose();
     window.location.reload(false);
-  };
-
-  const onColorChange = (e) => {
-    setNewCategory({ ...newCategory, color: e.target.value });
   };
 
   return (

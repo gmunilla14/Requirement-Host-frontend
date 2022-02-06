@@ -8,20 +8,26 @@ import TextInput from "../textInput";
 
 const SignIn = () => {
   const dispatch = useDispatch();
+
+  //Initialize object state
   const [creds, setCreds] = useState({
     email: "",
     password: "",
   });
+
+  //Error state
   const [errorMessage, setErrorMessage] = useState("");
 
+  //Get State of authentication and go to dashboard if signed in
   const auth = useSelector((state) => state.auth);
   if (auth._id) return <Navigate replace to="/" />;
 
+  //Submit signin
   const handleSubmit = (e) => {
     e.preventDefault();
+    //Sign in and set error message if there is one
     dispatch(signIn(creds, setErrorMessage));
     setCreds({ email: "", password: "" });
-
   };
 
   return (

@@ -6,6 +6,7 @@ export const signUp = (user) => {
     axios
       .post(`${url}/auth/signup`, user)
       .then((token) => {
+        //Put loaded token into local storage
         localStorage.setItem("token", token.data);
         dispatch({
           type: "SIGN_UP",
@@ -23,6 +24,7 @@ export const signIn = (creds, setErrorMessage) => {
     axios
       .post(`${url}/auth/signin`, creds)
       .then((token) => {
+        //Put loaded token into local storage
         localStorage.setItem("token", token.data);
         dispatch({
           type: "SIGN_IN",
@@ -35,8 +37,11 @@ export const signIn = (creds, setErrorMessage) => {
   };
 };
 
+//
 export const loadUser = () => {
+  //Use getState middleware to access redux state in action
   return (dispatch, getState) => {
+    //Get token from state
     const token = getState().auth.token;
     if (token) {
       dispatch({

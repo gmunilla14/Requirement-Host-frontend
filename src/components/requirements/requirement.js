@@ -1,8 +1,6 @@
 import { Row, Col, Form } from "react-bootstrap";
 import { BsTrashFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import { getProjects } from "../../store/actions/projectActions";
-import { useEffect } from "react";
 import {
   deleteRequirement,
   editRequirement,
@@ -13,20 +11,27 @@ import { RiPencilFill } from "react-icons/ri";
 import { BsCheckLg } from "react-icons/bs";
 import Pill from "../pill";
 
-const Requirement = ({ requirement, setRequirement }) => {
-  const [editingText, setEditingText] = useState(false);
-  const categories = useSelector((state) => state.categories);
-  const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
+const Requirement = ({ requirement }) => {
 
-  const handleDelete = (id) => {
-    dispatch(deleteRequirement(id));
-  };
+  //Get state
+  const auth = useSelector((state) => state.auth);
+  const categories = useSelector((state) => state.categories);
+  const projects = useSelector((state) => state.projects);
+
+  const dispatch = useDispatch();
+
+  //Create state for inline editing 
+  const [editingText, setEditingText] = useState(false);
 
   const onEditClick = () => {
     setEditingText(!editingText);
   };
 
+  const handleDelete = (id) => {
+    dispatch(deleteRequirement(id));
+  };
+
+  //Submit the current edit if the Enter key is pressed
   const handleKeyPress = (e) => {
     if (e.charCode === 13) {
       requirement = { ...requirement, text: e.target.value };
@@ -35,6 +40,7 @@ const Requirement = ({ requirement, setRequirement }) => {
     }
   };
 
+  //Submit the current edit if the check button is pressed
   const onCheckClick = (e) => {
     const text = document.getElementById("edit_req").value;
     requirement = { ...requirement, text: text };
@@ -42,34 +48,35 @@ const Requirement = ({ requirement, setRequirement }) => {
     setEditingText(!editingText);
   };
 
+  //Satisfy requirement
   const handleSatisfyClick = () => {
     requirement = { ...requirement, isSatisfied: !requirement.isSatisfied };
     dispatch(satisfyRequirement(requirement));
   };
-  useEffect(() => {
-    dispatch(getProjects());
-  }, [dispatch]);
 
+
+  //Get current project associated with the requirement
   var reqProject = {};
-  const projects = useSelector((state) => state.projects);
   if (projects) {
     reqProject = projects.filter(
       (project) => project._id === requirement.projectId
     )[0];
   }
 
-  var reqCategory = "";
-  if (!(requirement.categoryId === "")) {
-    reqCategory = categories.filter((category) => {
-      return category.catId === requirement.categoryId;
-    })[0];
-  }
-
+  //Determine if user is owner or collaborator for project
   let ogUser = false;
   if (reqProject !== undefined) {
     if (reqProject.uid === auth._id) {
       ogUser = true;
     }
+  }
+
+  //Get category associated with the requirement
+  var reqCategory = "";
+  if (!(requirement.categoryId === "")) {
+    reqCategory = categories.filter((category) => {
+      return category.catId === requirement.categoryId;
+    })[0];
   }
 
   return (

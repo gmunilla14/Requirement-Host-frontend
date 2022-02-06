@@ -16,11 +16,12 @@ function App() {
 
   const [query, setQuery] = useState("");
 
+  //Get current user from token if it exists
   useEffect(() => {
     dispatch(loadUser());
   });
 
-
+  //Implement dark/light mode
   const root = document.querySelector(":root");
   const settings = useSelector((state) => state.settings);
   if (!(settings.darkMode === null)) {

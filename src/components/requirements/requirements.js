@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import AddRequirement from "./addRequirement";
 import Filters from "../filters";
 import { getCategories } from "../../store/actions/categoryActions";
+import { useEffect } from "react";
+import { getProjects } from "../../store/actions/projectActions";
 
 const Requirements = ({
   setRequirement,
@@ -14,30 +16,41 @@ const Requirements = ({
   setFilterCategory,
   setFilterProject,
 }) => {
+  //Load requirements and projects from state
   var requirements = useSelector((state) => state.requirements);
-  const dispatch = useDispatch();
-
   const projects = useSelector((state) => state.projects);
 
+  const dispatch = useDispatch();
+
+  //Load projects
+  useEffect(() => {
+    dispatch(getProjects());
+  }, [dispatch]);
+
+  //Find all unique category IDs from requirements and load them
   if (requirements.length > 0) {
-    const allCatIds = requirements.map((requirement) => requirement.categoryId)
-    const catIds = allCatIds.filter((value, index, array) => array.indexOf(value)=== index)
-    dispatch(getCategories(catIds))
+    const allCatIds = requirements.map((requirement) => requirement.categoryId);
+    const catIds = allCatIds.filter(
+      (value, index, array) => array.indexOf(value) === index
+    );
+    dispatch(getCategories(catIds));
   }
 
-
+  //Filter requirements by query
   if (!(query === "")) {
     requirements = requirements.filter((requirement) =>
       requirement.text.includes(query)
     );
   }
 
+  //Filter requirements by current filter category
   if (!(filterCategory === "")) {
     requirements = requirements.filter((requirement) => {
       return requirement.categoryId === filterCategory;
     });
   }
 
+  //Filter requirements by current filter project
   if (!(filterProject === "")) {
     const filterProjectId = projects.find(
       (project) => project.name === filterProject

@@ -1,6 +1,7 @@
 const Collab = ({ username, role, color }) => {
   var textColor = "#ffffff";
 
+  //Get color value and calculate text color value
   if (color !== undefined) {
     const redString = color.substring(1, 3);
     const greenString = color.substring(3, 5);

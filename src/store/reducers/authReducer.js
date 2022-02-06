@@ -12,7 +12,9 @@ const authReducer = (state = initialState, action) => {
     case "USER_LOADED":
     case "SIGN_IN":
     case "SIGN_UP":
+      //Decode returned token
       const user = jwtDecode(action.token);
+      //Return updated state with values from token
       return {
         ...initialState,
         token: action.token,

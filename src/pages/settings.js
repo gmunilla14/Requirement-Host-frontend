@@ -14,13 +14,6 @@ const Settings = () => {
   const settings = useSelector((state) => state.settings);
   const dispatch = useDispatch();
 
-  var darkMode = "";
-  if (settings.darkMode === "light") {
-    darkMode = "left";
-  } else if (settings.darkMode === "dark") {
-    darkMode = "right";
-  }
-
   useEffect(() => {
     dispatch(getSettings());
   }, []); //eslint-disable-line react-hooks/exhaustive-deps
@@ -28,6 +21,15 @@ const Settings = () => {
   useEffect(() => {
     dispatch(getCategories());
   }, []); //eslint-disable-line react-hooks/exhaustive-deps
+
+
+  //------------------------------------Light/Dark Mode Setting-----------------
+  var darkMode = "";
+  if (settings.darkMode === "light") {
+    darkMode = "left";
+  } else if (settings.darkMode === "dark") {
+    darkMode = "right";
+  }
 
   const onDarkModeClick = (settings) => {
     let newSettings = settings;
@@ -40,11 +42,15 @@ const Settings = () => {
     dispatch(editSettings(newSettings));
   };
 
+
+//-------------------------------------Set User Color Setting--------------------------
   const handleSetUserColor = () => {
     const color = document.getElementById("settings-user-color").value;
     let newSettings = { ...settings, color: color };
     dispatch(editSettings(newSettings));
   };
+
+  
   return (
     <>
       {auth._id ? (

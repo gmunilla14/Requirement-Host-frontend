@@ -7,15 +7,13 @@ import { IoMdBriefcase } from "react-icons/io";
 import { MdFormatListBulleted } from "react-icons/md";
 
 const Filters = ({ setFilterCategory, setFilterProject }) => {
+
+  //Get State
   const dispatch = useDispatch();
   const projects = useSelector((state) => state.projects);
   const categories = useSelector((state) => state.categories);
 
-  useEffect(() => {
-    dispatch(getProjects());
-  }, [dispatch]);
-
-
+  //Change Project Filter
   const onProjectChange = (e) => {
     if (!(e === "allProjects")) {
       setFilterProject(e);
@@ -24,6 +22,7 @@ const Filters = ({ setFilterCategory, setFilterProject }) => {
     }
   };
 
+  //Change Category Filter
   const onCategoryChange = (e) => {
     if (!(e === "allCategories")) {
       setFilterCategory(e);

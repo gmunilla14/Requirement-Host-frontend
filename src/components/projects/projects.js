@@ -6,28 +6,17 @@ import Project from "./project";
 import { useState } from "react";
 
 const Projects = ({ query }) => {
+  const auth = useSelector((state) => state.auth);
+  var projects = useSelector((state) => state.projects);
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getProjects());
   }, []); //eslint-disable-line react-hooks/exhaustive-deps
 
+  //Change statuse of size of screen based on width
   const [largeScreen, setLargeScreen] = useState(true);
-  const auth = useSelector((state) => state.auth);
-  var projects = useSelector((state) => state.projects);
-  var ownedProjects = [];
-  var collaboratorProjects = [];
-
-  if (!(query === "")) {
-    projects = projects.filter((project) => project.name.includes(query));
-  }
-
-  projects.forEach((project) => {
-    if (project.uid === auth._id) {
-      ownedProjects.push(project);
-    } else {
-      collaboratorProjects.push(project);
-    }
-  });
 
   window.addEventListener("resize", () => {
     var width = window.innerWidth > 0 ? window.innerWidth : window.screen.width;
@@ -35,6 +24,24 @@ const Projects = ({ query }) => {
       setLargeScreen(true);
     } else {
       setLargeScreen(false);
+    }
+  });
+
+
+  //Filter projects based on query
+  if (!(query === "")) {
+    projects = projects.filter((project) => project.name.includes(query));
+  }
+
+  //Split up projects into owned or collaborated
+  var ownedProjects = [];
+  var collaboratorProjects = [];
+
+  projects.forEach((project) => {
+    if (project.uid === auth._id) {
+      ownedProjects.push(project);
+    } else {
+      collaboratorProjects.push(project);
     }
   });
 

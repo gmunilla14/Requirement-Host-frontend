@@ -8,12 +8,15 @@ import { useNavigate } from "react-router-dom";
 const SignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  //Initialize starting state for user
   const [user, setUser] = useState({
     name: "",
     email: "",
     password: "",
   });
 
+  //Error states
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordCheckError, setPasswordCheckError] = useState(false);
   const [minUsernameError, setMinUsernameError] = useState(false);
@@ -23,6 +26,8 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    //Error handling
     var error = false;
 
     if (user.email === "") {
@@ -49,6 +54,8 @@ const SignUp = () => {
     }
 
     if (error) return;
+
+    //Send sign up request and navigate to main page
     dispatch(signUp(user));
     setUser({ name: "", email: "", password: "" });
     navigate("/");

@@ -30,18 +30,6 @@ export const addProject = (project) => {
   };
 };
 
-export const addCollaborator = (project, user) => {
-  return (dispatch) => {
-    axios
-      .put(`${url}/projects/${project._id}`, { user }, setHeaders())
-      .then((project) => {
-        dispatch({ type: "ADD_COLLAB", project });
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
-  };
-};
 
 export const ownerEditProject = (project) => {
   return (dispatch) => {

@@ -7,8 +7,11 @@ import Popup from "./popup";
 import {ReactComponent as ReactLogo} from '../images/logo.svg'
 
 const NavBar = ({ setQuery }) => {
+
+  //Load User
   const auth = useSelector((state) => state.auth);
 
+  //Initialize state to show logout popup
   const [showLogout, setShowLogout] = useState(false);
 
   const onQueryChange = (e) => {
@@ -19,6 +22,7 @@ const NavBar = ({ setQuery }) => {
     setShowLogout(!showLogout);
   };
 
+  //Get current page to highlight navbar sections
   var dashboardPage = false;
   var projectsPage = false;
   var settingsPage = false;

@@ -11,10 +11,16 @@ import { BsCheckLg } from "react-icons/bs";
 import { RiCloseLine } from "react-icons/ri";
 
 const AddProject = () => {
+  const dispatch = useDispatch();
+
+  //Get State
   const auth = useSelector((state) => state.auth);
   const projects = useSelector((state) => state.projects);
   const settings = useSelector((state) => state.settings);
+
   const [showModal, setShowModal] = useState(false);
+
+  //Initialize object state
   const [project, setProject] = useState({
     name: "",
     description: "",
@@ -28,6 +34,7 @@ const AddProject = () => {
   const [usernameStatus, setUsernameStatus] = useState("");
   const [collabUsernameSet, setCollabUsernameSet] = useState([]);
 
+  //Error state
   const [noProjectError, setNoProjectError] = useState(false);
   const [maxNameError, setMaxNameError] = useState(false);
   const [maxDescriptionError, setMaxDescriptionError] = useState(false);
@@ -39,8 +46,6 @@ const AddProject = () => {
   const [repeatCollabError, setRepeatCollabError] = useState(false);
   const [wrongCollabError, setWrongCollabError] = useState(false);
 
-  const dispatch = useDispatch();
-
   const handleClose = () => {
     setShowModal(false);
   };
@@ -49,7 +54,55 @@ const AddProject = () => {
     setShowModal(true);
   };
 
+  //Check inputted username to see if someone has it and add color if it does
+  const handleCheckUsername = (username) => {
+    axios.get(`${url}/auth/${username}`).then((exist) => {
+      if (exist.data) {
+        setUsernameStatus("valid");
+        setCollabUsername({ ...collabUsername, color: exist.data });
+      } else {
+        setUsernameStatus("invalid");
+        setWrongCollabError(true);
+      }
+    });
+  };
+
+  //Add collaborator to project
+  const handleAddCollaborator = (username) => {
+    //If the added username is not the owner and doesnt already exist in
+    //collaborator list
+    if (
+      !collabUsernameSet.filter(
+        (collaborator) => collaborator.name === username.name
+      ).length > 0 &&
+      username.name !== auth.name
+    ) {
+      //Add new username to list of collaborators
+      let newCollabs = project.collaborators;
+      newCollabs.push(username.name);
+
+      //Update current project list of collaborators
+      setProject({
+        ...project,
+        collaborators: newCollabs,
+      });
+
+      //Add collaborator to the set
+      setCollabUsernameSet((collaboratorSet) => [
+        ...collaboratorSet,
+        { name: username.name, color: username.color },
+      ]);
+
+      //Clear states
+      setUsernameStatus("");
+      setCollabUsername({ ...collabUsername, name: "" });
+    } else {
+      setRepeatCollabError(true);
+    }
+  };
+
   const handleSubmit = (e) => {
+    //Error handling
     let error = false;
 
     if (maxNameError) error = true;
@@ -80,6 +133,7 @@ const AddProject = () => {
 
     if (error) return;
 
+    //Create new project
     const newProj = {
       ...project,
       reqNum: 0,
@@ -97,44 +151,6 @@ const AddProject = () => {
     });
     handleClose();
     window.location.reload(false);
-  };
-
-  const handleCheckUsername = (username) => {
-    axios.get(`${url}/auth/${username}`).then((exist) => {
-      if (exist.data) {
-        setUsernameStatus("valid");
-        setCollabUsername({ ...collabUsername, color: exist.data });
-      } else {
-        setUsernameStatus("invalid");
-        setWrongCollabError(true);
-      }
-    });
-  };
-
-  const handleAddCollaborator = (username) => {
-    if (
-      !collabUsernameSet.filter(
-        (collaborator) => collaborator.name === username.name
-      ).length > 0 &&
-      username.name !== auth.name
-    ) {
-      let newCollabs = project.collaborators;
-      newCollabs.push(username.name);
-      setProject({
-        ...project,
-        collaborators: newCollabs,
-      });
-
-      setCollabUsernameSet((collaboratorSet) => [
-        ...collaboratorSet,
-        { name: username.name, color: username.color },
-      ]);
-
-      setUsernameStatus("");
-      setCollabUsername({ ...collabUsername, name: "" });
-    } else {
-      setRepeatCollabError(true);
-    }
   };
 
   return (
