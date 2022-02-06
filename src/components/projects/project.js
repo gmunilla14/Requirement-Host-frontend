@@ -5,10 +5,9 @@ import { url } from "../../api";
 import { useState } from "react";
 import { useEffect } from "react";
 import EditProject from "./editProject";
-import {FiFigma} from "react-icons/fi"
+import { FiFigma } from "react-icons/fi";
 
 const Project = ({ project, largeScreen }) => {
-
   //Initialize states
   const [owner, setOwner] = useState({
     name: "",
@@ -25,7 +24,6 @@ const Project = ({ project, largeScreen }) => {
 
   //On load
   useEffect(() => {
-
     //Get username and color of current owner
     axios
       .get(`${url}/auth/username/${project.uid}`)
@@ -58,16 +56,6 @@ const Project = ({ project, largeScreen }) => {
   return (
     <div>
       <div className="project-card">
-      <a className="figma-icon-holder" href={project.figmaLink}>
-          <div className="github-icon-circle">
-            <FiFigma className="github-icon" />
-          </div>
-        </a>
-        <a className="github-icon-holder" href={project.link}>
-          <div className="github-icon-circle">
-            <BsGithub className="github-icon" />
-          </div>
-        </a>
         <div className="project-title-holder">
           <div className="project-title">{project.name}</div>
           <EditProject
@@ -79,6 +67,16 @@ const Project = ({ project, largeScreen }) => {
         </div>
 
         <div className="project-sub-holder">
+          <a className="figma-icon-holder" href={project.figmaLink}>
+            <div className="github-icon-circle">
+              <FiFigma className="github-icon" />
+            </div>
+          </a>
+          <a className="github-icon-holder" href={project.link}>
+            <div className="github-icon-circle">
+              <BsGithub className="github-icon" />
+            </div>
+          </a>
           <div className="project-subheader">Description</div>
           <div className="project-description">{project.description}</div>
         </div>
