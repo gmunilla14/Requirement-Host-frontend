@@ -22,11 +22,6 @@ const Requirements = ({
 
   const dispatch = useDispatch();
 
-  //Load projects
-  useEffect(() => {
-    dispatch(getProjects());
-  }, [dispatch]);
-
   //Find all unique category IDs from requirements and load them
   if (requirements.length > 0) {
     const allCatIds = requirements.map((requirement) => requirement.categoryId);

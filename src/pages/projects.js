@@ -1,23 +1,23 @@
 import { useSelector, useDispatch } from "react-redux";
 import Projects from "../components/projects/projects";
-import NavigationWindow from "../components/navigationWindow";
 import AddProject from "../components/projects/addProject";
 import NavBar from "../components/navBar";
-import { getSettings } from "../store/actions/settingActions";
-import { useEffect } from "react";
+import Loading from "./loading";
+import { Navigate } from "react-router-dom";
 
-const ProjectPage = ({setQuery, query}) => {
+const ProjectPage = ({ setQuery, query }) => {
   const auth = useSelector((state) => state.auth);
-  const dispatch = useDispatch()
+  const loading = useSelector((state) => state.loading);
 
-  useEffect(() => {
-    dispatch(getSettings());
-  }, []); //eslint-disable-line react-hooks/exhaustive-deps
+  //Go to signin page if not authenticated
+  if (!auth.token) {
+    return <Navigate replace to="/signin" />;
+  }
 
-
+  console.log("Loading");
   return (
     <div>
-      {auth._id ? (
+      {loading === 0 ? (
         <>
           <NavBar setQuery={setQuery} />
           <div className="project-page-holder" id="project-page">
@@ -26,14 +26,11 @@ const ProjectPage = ({setQuery, query}) => {
               <AddProject />
             </div>
 
-            <Projects query={query}/>
+            <Projects query={query} />
           </div>
         </>
       ) : (
-        <NavigationWindow
-          navPath="/signin"
-          message="You need to be signed in to view projects!"
-        />
+        <Loading />
       )}
     </div>
   );

@@ -657,7 +657,7 @@ td {
 .project-description {
   color: var(--project-description);
   min-height: 1.375rem;
-  width: calc(100% - 6.5rem)
+  width: calc(100% - 6.5rem);
 }
 
 .project-sub-holder {
@@ -1039,6 +1039,91 @@ td {
   cursor: pointer;
 }
 
+.loading-bg {
+  height: 100vh;
+  width: 100vw;
+  background-color: #1a1a20;
+}
+
+.loading-holder {
+  display: flex;
+  width: 80vw;
+  height: 50vh;
+  justify-content: "center";
+  align-items: "center";
+  position: absolute;
+  top: calc(50% - 25vw);
+  left: calc(50% - 40vw);
+  flex-direction: column;
+  position: relative;
+}
+
+.loading-title {
+  font-size: calc(1.5rem + 5vw);
+  color: black;
+  text-align: "center";
+  margin: auto;
+  margin-bottom: 0px;
+  color: #ffffff;
+}
+
+.spinner {
+  width: 100px;
+  margin-top: 0px;
+  margin: auto;
+}
+
+.logo-holder {
+  margin: auto;
+}
+
+.H {
+  font-size: 128px;
+  color: #ffffff;
+  position: absolute;
+  top: 50%;
+  left: calc(50% - 48px);
+}
+
+.R {
+  font-size: 2rem;
+  color: #ffffff;
+  animation-name: spin;
+  animation-duration: 6000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  position: absolute;
+  top: calc(50% + 104px + 40px);
+  left: calc(50% - 12.8px);
+}
+
+@keyframes spin {
+  0% {
+    top: calc(50% + 104px + 40px);
+    left: calc(50% - 12.8px);
+  }
+  12.5% {
+    top: calc(50% + 104px + 40px);
+    left: calc(50% - 12.8px - 60px);
+  }
+  37.5% {
+    left: calc(50% - 12.8px - 60px);
+    top: calc(50% + 104px - 100px);
+  }
+  62.5% {
+    top: calc(50% + 104px - 100px);
+    left: calc(50% - 12.8px + 60px);
+  }
+  87.5% {
+    left: calc(50% - 12.8px + 60px);
+    top: calc(50% + 104px + 40px);
+  }
+  100% {
+    left: calc(50% - 12.8px);
+    top: calc(50% + 104px + 40px);
+  }
+}
+
 @media (max-width: 1250px) {
   .projects-holder {
     grid-template-columns: repeat(1, 1fr);
@@ -1201,7 +1286,7 @@ td {
   .github-icon-holder {
     right: 1rem;
   }
-  
+
   .figma-icon-holder {
     right: 3.5rem;
   }

@@ -3,6 +3,7 @@ import { url, setHeaders } from "../../api";
 
 export const getProjects = () => {
   return (dispatch) => {
+    dispatch({type: 'LOADING'})
     axios
       .get(`${url}/projects`, setHeaders())
       .then((projects) => {
@@ -10,6 +11,8 @@ export const getProjects = () => {
           type: "GET_PROJS",
           projects,
         });
+      }).then(() => {
+        dispatch({type: 'DONE'})
       })
       .catch((error) => {
         console.log(error.response);

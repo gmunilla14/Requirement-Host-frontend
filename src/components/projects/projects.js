@@ -1,7 +1,5 @@
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { getProjects } from "../../store/actions/projectActions";
 import Project from "./project";
 import { useState } from "react";
 
@@ -10,10 +8,6 @@ const Projects = ({ query }) => {
   var projects = useSelector((state) => state.projects);
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getProjects());
-  }, []); //eslint-disable-line react-hooks/exhaustive-deps
 
   //Change statuse of size of screen based on width
   const [largeScreen, setLargeScreen] = useState(true);

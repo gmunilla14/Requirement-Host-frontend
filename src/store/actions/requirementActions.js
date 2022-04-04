@@ -3,6 +3,7 @@ import { url, setHeaders } from "../../api";
 
 export const getRequirements = () => {
   return (dispatch) => {
+    dispatch({type: 'LOADING'})
     axios
       .get(`${url}/requirements`, setHeaders())
       .then((requirements) => {
@@ -10,6 +11,8 @@ export const getRequirements = () => {
           type: "GET_REQS",
           requirements,
         });
+      }).then(() => {
+        dispatch({type: 'DONE'})
       })
       .catch((error) => {
         console.log(error);

@@ -1,5 +1,8 @@
 import axios from "axios";
 import { url } from "../../api/index";
+import { getProjects } from "./projectActions";
+import { getRequirements } from "./requirementActions";
+import { getSettings } from "./settingActions";
 
 export const signUp = (user) => {
   return (dispatch) => {
@@ -21,6 +24,9 @@ export const signUp = (user) => {
 
 export const signIn = (creds, setErrorMessage) => {
   return (dispatch) => {
+    dispatch({ type: "CLEAR_LOADER" });
+    dispatch({ type: "LOADING" });
+
     axios
       .post(`${url}/auth/signin`, creds)
       .then((token) => {
@@ -30,6 +36,14 @@ export const signIn = (creds, setErrorMessage) => {
           type: "SIGN_IN",
           token: token.data,
         });
+      })
+      .then(() => {
+        dispatch(getRequirements());
+        dispatch(getProjects());
+        dispatch(getSettings());
+      })
+      .then(() => {
+        dispatch({ type: "DONE" });
       })
       .catch((error) => {
         setErrorMessage(error.response);
@@ -59,4 +73,3 @@ export const signOut = () => {
     });
   };
 };
-

@@ -1,27 +1,18 @@
 import { useSelector } from "react-redux";
-import NavigationWindow from "../components/navigationWindow";
 import Setting from "../components/setting";
 import SwitchToggle from "../components/switchToggle";
 import { editSettings } from "../store/actions/settingActions";
 import { useDispatch } from "react-redux";
 import NavBar from "../components/navBar";
-import { getSettings } from "../store/actions/settingActions";
-import { getCategories } from "../store/actions/categoryActions";
-import { useEffect } from "react";
+import Loading from "./loading";
+import { Navigate } from "react-router-dom";
 
 const Settings = () => {
   const auth = useSelector((state) => state.auth);
   const settings = useSelector((state) => state.settings);
+  const loading = useSelector((state) => state.loading);
+
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getSettings());
-  }, []); //eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    dispatch(getCategories());
-  }, []); //eslint-disable-line react-hooks/exhaustive-deps
-
 
   //------------------------------------Light/Dark Mode Setting-----------------
   var darkMode = "";
@@ -42,18 +33,21 @@ const Settings = () => {
     dispatch(editSettings(newSettings));
   };
 
+  //Go to signin page if not authenticated
+  if (!auth.token) {
+    return <Navigate replace to="/signin" />;
+  }
 
-//-------------------------------------Set User Color Setting--------------------------
+  //-------------------------------------Set User Color Setting--------------------------
   const handleSetUserColor = () => {
     const color = document.getElementById("settings-user-color").value;
     let newSettings = { ...settings, color: color };
     dispatch(editSettings(newSettings));
   };
 
-  
   return (
     <>
-      {auth._id ? (
+      {loading === 0 ? (
         <>
           <NavBar />
           <div className="settings-page-holder">
@@ -79,7 +73,7 @@ const Settings = () => {
                     className="setting-color-holder"
                     style={{ display: "flex" }}
                   >
-                    <input type="color" id="settings-user-color"/>
+                    <input type="color" id="settings-user-color" />
                     <div
                       className="setting-color-btn"
                       onClick={handleSetUserColor}
@@ -93,10 +87,7 @@ const Settings = () => {
           </div>
         </>
       ) : (
-        <NavigationWindow
-          navPath="/signin"
-          message="You need to be signed in to view user settings!"
-        />
+        <Loading />
       )}
     </>
   );

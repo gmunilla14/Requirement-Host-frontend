@@ -4,6 +4,7 @@ import { setHeaders } from "../../api";
 
 export const getSettings = () => {
   return (dispatch) => {
+    dispatch({type: 'LOADING'})
     axios
       .get(`${url}/settings`, setHeaders())
       .then((settings) => {
@@ -11,6 +12,8 @@ export const getSettings = () => {
           type: "GET_SETTINGS",
           settings,
         });
+      }).then(() => {
+        dispatch({type: 'DONE'})
       })
       .catch((error) => {
         console.log(error);

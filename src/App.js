@@ -9,7 +9,12 @@ import ProjectPage from "./pages/projects";
 import { loadUser } from "./store/actions/authActions";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { getRequirements } from "./store/actions/requirementActions";
+import { getSettings } from "./store/actions/settingActions";
+import { getProjects } from "./store/actions/projectActions";
 import "./styles.css";
+import { getCategories } from "./store/actions/categoryActions";
+import Loading from "./pages/loading";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,7 +24,15 @@ function App() {
   //Get current user from token if it exists
   useEffect(() => {
     dispatch(loadUser());
+    console.log('Loading User')
   });
+
+  //Load requirements
+  useEffect(() => {
+    dispatch(getRequirements());
+    dispatch(getSettings());
+    dispatch(getProjects());
+  }, []); //eslint-disable-line react-hooks/exhaustive-deps
 
   //Implement dark/light mode
   const root = document.querySelector(":root");
@@ -74,11 +87,17 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Dashboard query={query} setQuery={setQuery}/>}></Route>
+          <Route
+            path="/"
+            element={<Dashboard query={query} setQuery={setQuery} />}
+          ></Route>
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/signin" element={<SignIn />}></Route>
           <Route path="/settings" element={<Settings />}></Route>
-          <Route path="/projects" element={<ProjectPage setQuery={setQuery} query={query}/>}></Route>
+          <Route
+            path="/projects"
+            element={<ProjectPage query={query} setQuery={setQuery} />}
+          ></Route>
         </Routes>
       </BrowserRouter>
     </div>
