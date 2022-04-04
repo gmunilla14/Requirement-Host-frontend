@@ -633,6 +633,49 @@ td {
   cursor: pointer;
 }
 
+.edit-button-holder {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+
+.delete-project-holder {
+  background-color: #b70b0e;
+  border-color: #b70b0e;
+  border-radius: 0.25rem;
+  box-shadow: none;
+  color: var(--button-text);
+  border-style: solid;
+  padding-top: 0.125rem;
+  margin-left: 1rem;
+  margin-right: 0;
+  margin-top: 1rem;
+}
+
+.delete-alert-modal {
+  background-color: black;
+}
+
+.delete-alert-modal-content {
+  border-style: solid;
+  border-radius: 0.25rem;
+  border-width: 0.5rem;
+  border-color: red;
+}
+
+.delete-alert-title {
+  margin-top: 1.5rem;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.delete-alert-text {
+  width: 90%;
+  margin: auto;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
 .blocked-input {
   background-color: var(--text-input-bg);
   color: var(--placeholder-text);
@@ -980,6 +1023,11 @@ td {
   font-size: 0.75rem;
   font-weight: 500;
   color: var(--input-header-text);
+}
+
+.collab-x {
+  margin-top: 0.4rem;
+  color: #b70b0e
 }
 
 .valid-circle {

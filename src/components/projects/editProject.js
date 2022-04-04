@@ -4,6 +4,7 @@ import TextInput from "../textInput";
 import { Form } from "react-bootstrap";
 import { BsCheckLg } from "react-icons/bs";
 import { RiCloseLine } from "react-icons/ri";
+import { BsTrashFill } from "react-icons/bs";
 import Collab from "../collab";
 import axios from "axios";
 import { url } from "../../api";
@@ -11,24 +12,29 @@ import { useSelector } from "react-redux";
 import {
   ownerEditProject,
   collaboratorEditProject,
+  deleteProject,
 } from "../../store/actions/projectActions";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 
-const EditProject = ({ inputProject, owner, collaboratorSet }) => {
-
+const EditProject = ({
+  inputProject,
+  owner,
+  collaboratorSet,
+  setCollaboratorSet,
+}) => {
   const auth = useSelector((state) => state.auth);
 
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
 
   const dispatch = useDispatch();
 
   const [project, setProject] = useState(inputProject);
 
-
   const [collabUsername, setCollabUsername] = useState("");
   const [usernameStatus, setUsernameStatus] = useState("");
-  const [editingCollabSet, setEditingCollabSet] = useState([]);
+  const [editingCollabSet, setEditingCollabSet] = useState(collaboratorSet);
 
   //Error states
   const [noProjectError, setNoProjectError] = useState(false);
@@ -41,7 +47,7 @@ const EditProject = ({ inputProject, owner, collaboratorSet }) => {
 
   useEffect(() => {
     setEditingCollabSet(collaboratorSet);
-  }, []); //eslint-disable-line react-hooks/exhaustive-deps
+  }, [collaboratorSet]); //eslint-disable-line react-hooks/exhaustive-deps
 
   let status = "collaborator";
   if (owner.name === auth.name) {
@@ -101,25 +107,22 @@ const EditProject = ({ inputProject, owner, collaboratorSet }) => {
 
   const handleSubmit = () => {
     if (status === "owner") {
+      let error = false;
 
-        let error = false;
+      if (maxNameError) error = true;
 
-        if (maxNameError) error = true;
-    
-        if (project.name === "") {
-          error = true;
-          setNoProjectError(true);
-        }
+      if (project.name === "") {
+        error = true;
+        setNoProjectError(true);
+      }
 
-        if (maxDescriptionError) error = true;
-        if (maxGithubError) error = true;
+      if (maxDescriptionError) error = true;
+      if (maxGithubError) error = true;
 
-        if (maxFigmaError) error = true;
+      if (maxFigmaError) error = true;
 
-        if (error) return;
+      if (error) return;
 
-
-        
       const newProject = {
         name: project.name,
         description: project.description,
@@ -129,19 +132,24 @@ const EditProject = ({ inputProject, owner, collaboratorSet }) => {
         _id: project._id,
       };
       inputProject = newProject;
+      setCollaboratorSet(project.collaborators);
       dispatch(ownerEditProject(newProject));
     } else {
       const newValues = {
         link: project.link,
         figmaLink: project.figmaLink,
         _id: project._id,
+        collaborators: project.collaborators
       };
 
       dispatch(collaboratorEditProject(newValues));
     }
 
     handleClose();
-    window.location.reload(false);
+  };
+
+  const handleDeleteProject = () => {
+    dispatch(deleteProject(project));
   };
 
   return (
@@ -152,7 +160,15 @@ const EditProject = ({ inputProject, owner, collaboratorSet }) => {
 
       <Modal show={showModal} onHide={handleClose}>
         <Modal.Header className="modal-header" closeButton>
-          <Modal.Title className="add-proj-title">Edit Project</Modal.Title>
+          <Modal.Title
+            className="add-proj-title"
+            onClick={() => {
+              console.log(project);
+              console.log(editingCollabSet)
+            }}
+          >
+            Edit Project
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form noValidate autoComplete="off">
@@ -308,8 +324,8 @@ const EditProject = ({ inputProject, owner, collaboratorSet }) => {
                           ...collabUsername,
                           name: e.target.value,
                         });
-                        setWrongCollabError(false)
-                        setRepeatCollabError(false)
+                        setWrongCollabError(false);
+                        setRepeatCollabError(false);
                       }}
                       error={
                         wrongCollabError
@@ -398,6 +414,11 @@ const EditProject = ({ inputProject, owner, collaboratorSet }) => {
                         role="Collaborator"
                         key={collaborator}
                         color={color}
+                        editable={(status === "owner") || auth.name === collaborator }
+                        project={project}
+                        setProject={setProject}
+                        editingCollabSet={editingCollabSet}
+                        setEditingCollabSet={setEditingCollabSet}
                       />
                     );
                   } else {
@@ -405,23 +426,85 @@ const EditProject = ({ inputProject, owner, collaboratorSet }) => {
                   }
                 })}
               </div>
+              <div className="edit-button-holder">
+                <div className="add-button-modal-holder">
+                  <div
+                    className="add-reqs-modal"
+                    style={{
+                      paddingRight: "0.5rem",
+                      cursor: "pointer",
+                      paddingLeft: "0.5rem",
+                    }}
+                    onClick={handleSubmit}
+                  >
+                    Edit Project
+                  </div>
+                </div>
 
-              <div className="add-button-modal-holder">
-                <div
-                  className="add-reqs-modal"
-                  style={{
-                    paddingRight: "0.5rem",
-                    cursor: "pointer",
-                    paddingLeft: "0.5rem",
-                  }}
-                  onClick={handleSubmit}
-                >
-                  Edit Project
+                <div className="add-button-modal-holder">
+                  <div
+                    className="delete-project-holder"
+                    style={{
+                      paddingRight: "0.5rem",
+                      cursor: "pointer",
+                      paddingLeft: "0.5rem",
+                    }}
+                    onClick={() => setShowDeleteAlert(true)}
+                  >
+                    <BsTrashFill className="delete-project-icon" />
+                  </div>
                 </div>
               </div>
             </div>
           </Form>
         </Modal.Body>
+      </Modal>
+      <Modal
+        show={showDeleteAlert}
+        onHide={() => {
+          setShowDeleteAlert(!showDeleteAlert);
+        }}
+        className="delete-alert-modal"
+      >
+        <div className="delete-alert-modal-bg"></div>
+        <div className="delete-alert-modal-content">
+          <div className="delete-alert-title">Warning!</div>
+          <div className="delete-alert-text">
+            Deleting this project will also delete all of its requirements.
+          </div>
+          <div className="delete-alert-text">
+            This cannot be undone! Would you like to continue?
+          </div>
+          <div className="edit-button-holder" style={{ marginRight: "10px" }}>
+            <div className="add-button-modal-holder">
+              <div
+                className="delete-project-holder"
+                style={{
+                  paddingRight: "0.5rem",
+                  cursor: "pointer",
+                  paddingLeft: "0.5rem",
+                  marginRight: "1rem",
+                }}
+                onClick={() => handleDeleteProject()}
+              >
+                Yes, Delete
+              </div>
+            </div>
+            <div className="add-button-modal-holder">
+              <div
+                className="add-reqs-modal"
+                style={{
+                  paddingRight: "0.5rem",
+                  cursor: "pointer",
+                  paddingLeft: "0.5rem",
+                }}
+                onClick={() => setShowDeleteAlert(false)}
+              >
+                No
+              </div>
+            </div>
+          </div>
+        </div>
       </Modal>
     </div>
   );

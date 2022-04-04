@@ -49,7 +49,9 @@ const Project = ({ project, largeScreen }) => {
             { name: collaborator, color: data.data },
           ]);
         })
-        .catch((err) => {});
+        .catch((err) => {
+          console.log(err);
+        });
     });
   }, []); //eslint-disable-line react-hooks/exhaustive-deps
 

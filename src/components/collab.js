@@ -1,4 +1,15 @@
-const Collab = ({ username, role, color }) => {
+import { AiOutlineClose } from "react-icons/ai";
+
+const Collab = ({
+  username,
+  role,
+  color,
+  editable,
+  project,
+  setProject,
+  editingCollabSet,
+  setEditingCollabSet,
+}) => {
   var textColor = "#ffffff";
 
   //Get color value and calculate text color value
@@ -35,6 +46,21 @@ const Collab = ({ username, role, color }) => {
         <div className="collab-username">{username}</div>
         <div className="collab-role">{role}</div>
       </div>
+      {editable && (
+        <AiOutlineClose
+          onClick={() => {
+            let newCollabs = project.collaborators.filter(
+              (user) => user !== username
+            );
+            setProject({ ...project, collaborators: newCollabs });
+            setEditingCollabSet(
+              editingCollabSet.filter((user) => user.name !== username)
+            );
+          }}
+
+          className="collab-x"
+        />
+      )}
     </div>
   );
 };

@@ -407,6 +407,9 @@ const AddProject = () => {
                             role="Collaborator"
                             key={collaborator}
                             color={color}
+                            editable={true}
+                            project={project}
+                            setProject={setProject}
                           />
                         );
                       } else {
