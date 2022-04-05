@@ -5,8 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import AddRequirement from "./addRequirement";
 import Filters from "../filters";
 import { getCategories } from "../../store/actions/categoryActions";
-import { useEffect } from "react";
-import { getProjects } from "../../store/actions/projectActions";
+
 
 const Requirements = ({
   setRequirement,

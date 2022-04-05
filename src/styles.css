@@ -636,7 +636,7 @@ td {
 .edit-button-holder {
   display: flex;
   flex-direction: row;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .delete-project-holder {

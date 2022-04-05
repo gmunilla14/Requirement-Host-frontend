@@ -11,7 +11,6 @@ import { v4 as uuidv4 } from "uuid";
 import TextInput from "../textInput";
 
 const AddRequirement = () => {
-  
   const dispatch = useDispatch();
 
   //Load state
@@ -22,8 +21,6 @@ const AddRequirement = () => {
   //Filter categories and projects to only show ones created by the user
   cats = cats.filter((category) => category.uid === auth._id);
   projects = projects.filter((project) => project.uid === auth._id);
-
-
 
   //Initialize new object states
   const [requirement, setRequirement] = useState({
@@ -142,10 +139,12 @@ const AddRequirement = () => {
     setRequirement({
       text: "",
       isSatisfied: false,
-      category: "",
+      categoryId: "",
     });
+    setCurrentCat({ text: "", category: "" });
+    setNewCategory({ text: "", category: "" });
+    setCurrentProjName("");
     handleClose();
-    window.location.reload(false);
   };
 
   return (
@@ -246,7 +245,7 @@ const AddRequirement = () => {
                   {showNewCat && (
                     <Col>
                       <Form.Group>
-                        <div style={{ display: "flex", marginTop: '-1rem' }}>
+                        <div style={{ display: "flex", marginTop: "-1rem" }}>
                           <TextInput
                             title=""
                             type="text"

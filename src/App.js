@@ -13,8 +13,7 @@ import { getRequirements } from "./store/actions/requirementActions";
 import { getSettings } from "./store/actions/settingActions";
 import { getProjects } from "./store/actions/projectActions";
 import "./styles.css";
-import { getCategories } from "./store/actions/categoryActions";
-import Loading from "./pages/loading";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -24,7 +23,6 @@ function App() {
   //Get current user from token if it exists
   useEffect(() => {
     dispatch(loadUser());
-    console.log('Loading User')
   });
 
   //Load requirements

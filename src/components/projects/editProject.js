@@ -139,7 +139,7 @@ const EditProject = ({
         link: project.link,
         figmaLink: project.figmaLink,
         _id: project._id,
-        collaborators: project.collaborators
+        collaborators: project.collaborators,
       };
 
       dispatch(collaboratorEditProject(newValues));
@@ -160,15 +160,7 @@ const EditProject = ({
 
       <Modal show={showModal} onHide={handleClose}>
         <Modal.Header className="modal-header" closeButton>
-          <Modal.Title
-            className="add-proj-title"
-            onClick={() => {
-              console.log(project);
-              console.log(editingCollabSet)
-            }}
-          >
-            Edit Project
-          </Modal.Title>
+          <Modal.Title className="add-proj-title">Edit Project</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form noValidate autoComplete="off">
@@ -414,7 +406,9 @@ const EditProject = ({
                         role="Collaborator"
                         key={collaborator}
                         color={color}
-                        editable={(status === "owner") || auth.name === collaborator }
+                        editable={
+                          status === "owner" || auth.name === collaborator
+                        }
                         project={project}
                         setProject={setProject}
                         editingCollabSet={editingCollabSet}

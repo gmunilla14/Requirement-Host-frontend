@@ -1,15 +1,11 @@
 import "../styles.css";
 import { Container, Dropdown, Row } from "react-bootstrap";
-import { getProjects } from "../store/actions/projectActions";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { IoMdBriefcase } from "react-icons/io";
 import { MdFormatListBulleted } from "react-icons/md";
 
 const Filters = ({ setFilterCategory, setFilterProject }) => {
-
   //Get State
-  const dispatch = useDispatch();
   const projects = useSelector((state) => state.projects);
   const categories = useSelector((state) => state.categories);
 

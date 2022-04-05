@@ -150,7 +150,6 @@ const AddProject = () => {
       figmaLink: "",
     });
     handleClose();
-    window.location.reload(false);
   };
 
   return (

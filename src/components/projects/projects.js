@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
 import Project from "./project";
 import { useState } from "react";
 
@@ -7,7 +6,6 @@ const Projects = ({ query }) => {
   const auth = useSelector((state) => state.auth);
   var projects = useSelector((state) => state.projects);
 
-  const dispatch = useDispatch();
 
   //Change statuse of size of screen based on width
   const [largeScreen, setLargeScreen] = useState(true);

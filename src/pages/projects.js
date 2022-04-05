@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import Projects from "../components/projects/projects";
 import AddProject from "../components/projects/addProject";
 import NavBar from "../components/navBar";
@@ -14,7 +14,6 @@ const ProjectPage = ({ setQuery, query }) => {
     return <Navigate replace to="/signin" />;
   }
 
-  console.log("Loading");
   return (
     <div>
       {loading === 0 ? (
