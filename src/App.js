@@ -71,7 +71,7 @@ function App() {
       root.style.setProperty("--nav-border", "#e1e5ea");
       root.style.setProperty("--nav-title-split", "#f5f5f5");
       root.style.setProperty("--editing-icon", "#9b9d9e");
-      root.style.setProperty("--editing-icon-bg", "#f5f5f5");
+      root.style.setProperty("--editing-icon-bg", "#e5e5e5");
       root.style.setProperty("--search-placeholder", "#9b9d9e");
       root.style.setProperty("--modal-bg", "#f5f5f5");
       root.style.setProperty("--bar-holder-color", "#f5f5f5");

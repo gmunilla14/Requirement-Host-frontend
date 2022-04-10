@@ -55,7 +55,7 @@ const Projects = ({ query }) => {
           <div className="collab-project-divider"></div>
           <div
             className="project-page-title"
-            style={{ marginTop: "4rem", marginBottom: "1rem" }}
+            style={{ marginTop: "2rem", marginBottom: "1rem" }}
           >
             Collaborator Projects
           </div>
