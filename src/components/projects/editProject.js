@@ -431,7 +431,7 @@ const EditProject = ({
                     }}
                     onClick={handleSubmit}
                   >
-                    Edit Project
+                    Save Project
                   </div>
                 </div>
 
