@@ -435,19 +435,21 @@ const EditProject = ({
                   </div>
                 </div>
 
-                <div className="add-button-modal-holder">
-                  <div
-                    className="delete-project-holder"
-                    style={{
-                      paddingRight: "0.5rem",
-                      cursor: "pointer",
-                      paddingLeft: "0.5rem",
-                    }}
-                    onClick={() => setShowDeleteAlert(true)}
-                  >
-                    <BsTrashFill className="delete-project-icon" />
+                {status === "owner" && (
+                  <div className="add-button-modal-holder">
+                    <div
+                      className="delete-project-holder"
+                      style={{
+                        paddingRight: "0.5rem",
+                        cursor: "pointer",
+                        paddingLeft: "0.5rem",
+                      }}
+                      onClick={() => setShowDeleteAlert(true)}
+                    >
+                      <BsTrashFill className="delete-project-icon" />
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           </Form>
