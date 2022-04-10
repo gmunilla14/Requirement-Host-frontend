@@ -446,7 +446,8 @@ const EditProject = ({
                       }}
                       onClick={() => setShowDeleteAlert(true)}
                     >
-                      <BsTrashFill className="delete-project-icon" />
+                      <BsTrashFill className="delete-project-icon" /> Delete
+                      Project
                     </div>
                   </div>
                 )}
@@ -464,8 +465,8 @@ const EditProject = ({
       >
         <div className="delete-alert-modal-bg"></div>
         <div className="delete-alert-modal-content">
-          <div className="delete-alert-title">Warning!</div>
-          <div className="delete-alert-text">
+          <div className="add-proj-title">Warning!</div>
+          <div className="delete-alert-text" style={{ marginTop: "1rem" }}>
             Deleting this project will also delete all of its requirements.
           </div>
           <div className="delete-alert-text">
@@ -479,7 +480,7 @@ const EditProject = ({
                   paddingRight: "0.5rem",
                   cursor: "pointer",
                   paddingLeft: "0.5rem",
-                  marginRight: "1rem",
+                  marginRight: "0.5rem",
                 }}
                 onClick={() => handleDeleteProject()}
               >
@@ -496,7 +497,7 @@ const EditProject = ({
                 }}
                 onClick={() => setShowDeleteAlert(false)}
               >
-                No
+                No, Keep
               </div>
             </div>
           </div>

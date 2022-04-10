@@ -659,8 +659,10 @@ td {
 .delete-alert-modal-content {
   border-style: solid;
   border-radius: 0.25rem;
-  border-width: 0.5rem;
-  border-color: red;
+  border-width: 0.25rem;
+  border-color: #b70b0e;
+  padding-left: 1rem;
+  padding-top: 1rem;
 }
 
 .delete-alert-title {
@@ -673,7 +675,6 @@ td {
   width: 90%;
   margin: auto;
   font-size: 0.75rem;
-  text-align: center;
 }
 
 .blocked-input {
