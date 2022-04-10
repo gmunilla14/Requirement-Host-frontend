@@ -62,7 +62,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="login-bg" style={{ paddingTop: "9.375rem" }}>
+    <div className="login-bg" style={{ paddingTop: "9.375rem", height: '125vh' }}>
       <div className="login-modal signup-modal">
         <div className="login-modal-holder signup-holder">
           <div className="login-title">Sign Up</div>
