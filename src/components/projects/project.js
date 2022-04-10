@@ -8,6 +8,8 @@ import EditProject from "./editProject";
 import { FiFigma } from "react-icons/fi";
 
 const Project = ({ project, largeScreen }) => {
+  const [showModal, setShowModal] = useState(false);
+
   //Initialize states
   const [owner, setOwner] = useState({
     name: "",
@@ -59,12 +61,22 @@ const Project = ({ project, largeScreen }) => {
     <div>
       <div className="project-card">
         <div className="project-title-holder">
-          <div className="project-title">{project.name}</div>
+          <div
+            className="project-title"
+            onClick={() => {
+              setShowModal(true);
+            }}
+            style={{cursor: 'pointer'}}
+          >
+            {project.name}
+          </div>
           <EditProject
             inputProject={project}
             owner={owner}
             collaboratorSet={collaboratorSet}
             setCollaboratorSet={setCollaboratorSet}
+            showModal={showModal}
+            setShowModal={setShowModal}
           />
         </div>
 

@@ -22,10 +22,11 @@ const EditProject = ({
   owner,
   collaboratorSet,
   setCollaboratorSet,
+  showModal,
+  setShowModal
 }) => {
   const auth = useSelector((state) => state.auth);
 
-  const [showModal, setShowModal] = useState(false);
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
 
   const dispatch = useDispatch();

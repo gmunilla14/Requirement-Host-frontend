@@ -4,10 +4,9 @@ import { useState } from "react";
 import "../styles.css";
 import { IoMdSettings } from "react-icons/io";
 import Popup from "./popup";
-import {ReactComponent as ReactLogo} from '../images/logo.svg'
+import { ReactComponent as ReactLogo } from "../images/logo.svg";
 
 const NavBar = ({ setQuery }) => {
-
   //Load User
   const auth = useSelector((state) => state.auth);
 
@@ -46,7 +45,7 @@ const NavBar = ({ setQuery }) => {
       <Navbar expand="md" className="nav-heading">
         <Container>
           <Col>
-            <Navbar.Brand href='/'>
+            <Navbar.Brand href="/">
               <ReactLogo />
             </Navbar.Brand>
           </Col>
@@ -85,7 +84,10 @@ const NavBar = ({ setQuery }) => {
                     Settings
                   </Nav.Link>
 
-                  <div className="user-circle no-select user-circle-nav" onClick={onUserClick}>
+                  <div
+                    className="user-circle no-select user-circle-nav"
+                    onClick={onUserClick}
+                  >
                     <div className="user-circle-text">
                       {auth.name.charAt(0).toUpperCase()}
                     </div>
@@ -100,7 +102,9 @@ const NavBar = ({ setQuery }) => {
       {!settingsPage && (
         <div className="nav-search-holder">
           <div className="nav-title-holder">
-            <span className="nav-title">Requirements Host</span>
+            <a href="/">
+              <span className="nav-title">Requirements Host</span>
+            </a>
           </div>
           <span className="nav-line"></span>
           <input
