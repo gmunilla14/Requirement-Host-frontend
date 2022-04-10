@@ -1109,15 +1109,27 @@ td {
   height: 50vh;
   justify-content: "center";
   align-items: "center";
-  position: absolute;
   top: calc(50% - 25vw);
   left: calc(50% - 40vw);
   flex-direction: column;
   position: relative;
+
 }
 
 .loading-title {
-  font-size: calc(1.5rem + 5vw);
+  font-size: calc(1rem + 3vw);
+  text-align: "center";
+  margin: auto;
+  margin-top: 0px;
+  color: #ffffff;
+  animation-name: fade;
+  animation-duration: 3000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.loading-subtitle {
+  font-size: calc(1rem + 2vw);
   color: black;
   text-align: "center";
   margin: auto;
@@ -1125,60 +1137,16 @@ td {
   color: #ffffff;
 }
 
-.spinner {
-  width: 100px;
-  margin-top: 0px;
-  margin: auto;
-}
 
-.logo-holder {
-  margin: auto;
-}
-
-.H {
-  font-size: 128px;
-  color: #ffffff;
-  position: absolute;
-  top: 50%;
-  left: calc(50% - 48px);
-}
-
-.R {
-  font-size: 2rem;
-  color: #ffffff;
-  animation-name: spin;
-  animation-duration: 6000ms;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-  position: absolute;
-  top: calc(50% + 104px + 40px);
-  left: calc(50% - 12.8px);
-}
-
-@keyframes spin {
+@keyframes fade {
   0% {
-    top: calc(50% + 104px + 40px);
-    left: calc(50% - 12.8px);
+    opacity: 100%;
   }
-  12.5% {
-    top: calc(50% + 104px + 40px);
-    left: calc(50% - 12.8px - 60px);
-  }
-  37.5% {
-    left: calc(50% - 12.8px - 60px);
-    top: calc(50% + 104px - 100px);
-  }
-  62.5% {
-    top: calc(50% + 104px - 100px);
-    left: calc(50% - 12.8px + 60px);
-  }
-  87.5% {
-    left: calc(50% - 12.8px + 60px);
-    top: calc(50% + 104px + 40px);
+  50% {
+    opacity: 0%;
   }
   100% {
-    left: calc(50% - 12.8px);
-    top: calc(50% + 104px + 40px);
+    opacity: 100%;
   }
 }
 
