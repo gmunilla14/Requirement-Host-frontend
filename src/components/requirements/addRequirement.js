@@ -119,7 +119,7 @@ const AddRequirement = () => {
     if (maxRequirementError) {
       error = true;
     }
-    if (!newCategory.color) {
+    if (!newCategory.color && showNewCat) {
       setColorError(true)
       error = true;
     }
