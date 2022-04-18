@@ -48,6 +48,7 @@ const AddRequirement = () => {
   const [requirementError, setRequirementError] = useState(false);
   const [noProjectError, setNoProjectError] = useState(false);
   const [maxRequirementError, setMaxRequirementError] = useState(false);
+  const [colorError, setColorError] = useState(false);
 
   const [showModal, setShowModal] = useState(false);
   const [showNewCat, setShowNewCat] = useState(false);
@@ -89,6 +90,7 @@ const AddRequirement = () => {
 
   const onColorChange = (e) => {
     setNewCategory({ ...newCategory, color: e.target.value });
+    setColorError(false)
   };
 
   const onProjectChange = (e) => {
@@ -115,6 +117,10 @@ const AddRequirement = () => {
     }
 
     if (maxRequirementError) {
+      error = true;
+    }
+    if (!newCategory.color) {
+      setColorError(true)
       error = true;
     }
     if (error) return;
@@ -245,12 +251,22 @@ const AddRequirement = () => {
                   {showNewCat && (
                     <Col>
                       <Form.Group>
-                        <div style={{ display: "flex", marginTop: "-1rem" }}>
+                        <div
+                          style={
+                            !colorError
+                              ? { display: "flex", marginTop: "-1rem" }
+                              : { display: "flex", marginTop: "0rem" }
+                          }
+                        >
                           <TextInput
                             title=""
                             type="text"
                             value={newCategory.text}
                             setValue={onCatTextChange}
+                            error={
+                              colorError &&
+                              "Choose color when creating category"
+                            }
                           />
                           <input
                             type="color"
