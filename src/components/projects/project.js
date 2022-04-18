@@ -66,7 +66,7 @@ const Project = ({ project, largeScreen }) => {
             onClick={() => {
               setShowModal(true);
             }}
-            style={{cursor: 'pointer'}}
+            style={{ cursor: "pointer" }}
           >
             {project.name}
           </div>
@@ -81,12 +81,22 @@ const Project = ({ project, largeScreen }) => {
         </div>
 
         <div className="project-sub-holder">
-          <a className="figma-icon-holder" href={project.figmaLink}>
+          <a
+            className="figma-icon-holder"
+            href={project.figmaLink}
+            target="_blank"
+            rel="noreferrer"
+          >
             <div className="github-icon-circle">
               <FiFigma className="github-icon" />
             </div>
           </a>
-          <a className="github-icon-holder" href={project.link}>
+          <a
+            className="github-icon-holder"
+            href={project.link}
+            target="_blank"
+            rel="noreferrer"
+          >
             <div className="github-icon-circle">
               <BsGithub className="github-icon" />
             </div>
